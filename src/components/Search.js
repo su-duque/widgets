@@ -4,12 +4,50 @@ import axios from 'axios';
 const Search = () => {
   // Term se actualiza a medida que el usuario va escribiendo
   const [term, setTerm] = useState('programming');
+  // debouncedTerm se actualiza 1s después que el usuario deja de escribir, con él se hace la búsqueda
+  const [debouncedTerm, setDebouncedTerm] = useState(term);
   const [results, setResults] = useState([]);
 
   console.log('API Results', results);
 
   // Se ejecuta la primera vez que se renderiza el componente
-  // y cuando Term cambia
+  // y cuando term cambia
+  useEffect(() => {
+    // Este useEffect vigila term: cuando el usuario escribe crea un timer apenas termina de escribir
+    // para actualizar debouncedTerm, pero si agrega algo a lo que está escribiendo, cancela ese timmer
+    // mediante el timerId y vuelve a crear otro cuando termina de escribir, luego de que pasa ese tiempo se
+    // actualiza debouncedTerm con lo que se tiene en term
+    const timerId = setTimeout(() => {
+      setDebouncedTerm(term);
+    }, 1000);
+    return () => {
+      // Clean up function, que cancela el timer
+      clearTimeout(timerId);
+    };
+  }, [term]);
+
+  // Se ejecuta la primera vez que se renderiza el componente
+  // y cuando debouncedTerm cambia
+  useEffect(() => {
+    // Se crea una función search, porque no es posible que la función principal de useEffect sea async-await
+    const search = async () => {
+      const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
+        params: {
+          action: 'query',
+          list: 'search',
+          origin: '*',
+          format: 'json',
+          srsearch: debouncedTerm,
+        },
+      });
+      setResults(data.query.search);
+    };
+    search();
+  }, [debouncedTerm]);
+
+  /*
+  // UseEffect inicial, se crean 2 useEffect pues se tenía un warning sobre results.length, 
+  // decía que había que agregarlo al array de dependencia de useEffect, pues se estaba usando en este useEffect
   useEffect(() => {
     // Se crea una función search, porque no es posible que la función principal de useEffect sea async-await
     const search = async () => {
@@ -43,6 +81,7 @@ const Search = () => {
       };
     }
   }, [term]);
+  */
 
   const renderedResults = results.map((result) => {
     return (
