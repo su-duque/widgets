@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const Accordion = ({ items }) => {
   // Se hace un Array Destructuring:
   const [activeIndex, setActiveIndex] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const onTitleClick = (index) => {
     console.log('Title Clicked', index);
@@ -12,14 +13,17 @@ const Accordion = ({ items }) => {
   const renderedItems = items.map((item, index) => {
     // Para desplegar el acordeon, se necesita la palabra active en la clase
     // y debe estar 'active' cuando el index coincida con el valor del estado
-    const active = index === activeIndex ? 'active' : '';
+    const active = index === activeIndex && open ? 'active' : '';
 
     return (
       <React.Fragment key={item.title}>
         {/* El title es único, por eso se puede poner como una key */}
         <div
           className={`title ${active}`}
-          onClick={() => onTitleClick(index)}
+          onClick={() => {
+            onTitleClick(index);
+            setOpen(!open);
+          }}
           // se encierra en un Arrow Function para que no se ejecute cuando se
           // renderice la lista, sino cuando se le dé click a los items
         >
