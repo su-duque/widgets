@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Dropdown = ({ options, selected, onSelectedChange }) => {
+const Dropdown = ({ label, options, selected, onSelectedChange }) => {
   // selected es el objeto que contiene el label y el valor
 
   const [open, setOpen] = useState(false);
@@ -69,7 +69,7 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
   return (
     <div ref={ref} className='ui form'>
       <div className='field'>
-        <label className='label'>Select a Color</label>
+        <label className='label'>{label}</label>
         <div
           onClick={() => {
             // console.log('Dropdown clicked')

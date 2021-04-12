@@ -35,8 +35,8 @@ const options = [
 ];
 
 const App = () => {
-  const [selected, setSelected] = useState(options[0]);
-  const [showDropdown, setShowDropdown] = useState(true);
+  // const [selected, setSelected] = useState(options[0]);
+  // const [showDropdown, setShowDropdown] = useState(true);
 
   return (
     <div>
@@ -47,17 +47,19 @@ const App = () => {
         Toggle Dropdown
       </button>*/}
       {/* - Si showDropdown es true se muestra el componente, sino no se muestra nada null - */}
-      {/* - A Dropdown se le pasa el selected item, una callback function para actualizar el 
+      {/* - A Dropdown se le pasa el selected item, una callback function para actualizar el
       selected item y la lista de items de la cual el user puede elegir - */}
+      {/* - Se implementó el toggle para ver la importancia del clenup en el event handler - */}
       {/*{showDropdown ? (
         <Dropdown
+          label={'Select a color'}
           selected={selected}
           onSelectedChange={setSelected}
           options={options}
         />
-      ) : null} 
+      ) : null}
       */}
-      
+
       <Translate />
     </div>
   );
