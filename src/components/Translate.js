@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Convert from './Convert';
 import Dropdown from './Dropdown';
 
 const options = [
@@ -50,6 +51,10 @@ const Translate = () => {
           <input value={text} onChange={(e) => setText(e.target.value)} />
         </div>
       </div>
+
+      <hr />
+      <h3 className='ui header'>Output</h3>
+      <Convert text={text} language={languague} />
     </div>
   );
 };
