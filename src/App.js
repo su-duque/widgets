@@ -34,6 +34,38 @@ const options = [
   },
 ];
 
+const showAccordion = () => {
+  if (window.location.pathname === '/') {
+    return <Accordion items={items} />;
+  }
+};
+
+const showList = () => {
+  if (window.location.pathname === '/list') {
+    return <Search />;
+  }
+};
+
+const showDropdown = () => {
+  if (window.location.pathname === '/dropdown') {
+    return <Dropdown />;
+  }
+};
+
+const showTranslate = () => {
+  if (window.location.pathname === '/translate') {
+    return <Translate />;
+  }
+};
+
+/* En lugar de todas las funciones anteriores, Sería mejor implementar
+una función que haga todas las validaciones, pero esta no es una solución
+tipo React. Lo mejor es crear un Componente */
+const showComponent = (route, component) => {
+  return window.location.pathname === route ? component : null;
+}
+
+// export default () => { // <-- App podría tener esta forma
 const App = () => {
   // const [selected, setSelected] = useState(options[0]);
   // const [showDropdown, setShowDropdown] = useState(true);
@@ -59,8 +91,11 @@ const App = () => {
         />
       ) : null}
       */}
-
-      <Translate />
+      {/* <Translate /> */}
+      {showAccordion()}
+      {showList()}
+      {showDropdown()}
+      {showTranslate()}
     </div>
   );
 };
