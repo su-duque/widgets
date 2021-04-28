@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Accordion from './components/Accordion';
 import Dropdown from './components/Dropdown';
+import Route from './components/Route';
 import Search from './components/Search';
 import Translate from './components/Translate';
 
@@ -34,6 +35,7 @@ const options = [
   },
 ];
 
+/*
 const showAccordion = () => {
   if (window.location.pathname === '/') {
     return <Accordion items={items} />;
@@ -57,17 +59,21 @@ const showTranslate = () => {
     return <Translate />;
   }
 };
+*/
+/* Para usar este tipo de navegación se llaman todas las funciones dentro del
+return (<div> {showTranslate()} </div>)
+Y solo se ejecuta o se muestra el contenido del Componente que cumple con la ruta dada en la URL*/
 
-/* En lugar de todas las funciones anteriores, Sería mejor implementar
+/* Además, en lugar de todas las funciones anteriores, sería mejor implementar
 una función que haga todas las validaciones, pero esta no es una solución
-tipo React. Lo mejor es crear un Componente */
-const showComponent = (route, component) => {
+tipo React. ¡Lo mejor es crear un Componente! */
+/* const showComponent = (route, component) => {
   return window.location.pathname === route ? component : null;
-}
+}; */
 
 // export default () => { // <-- App podría tener esta forma
 const App = () => {
-  // const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(options[0]);
   // const [showDropdown, setShowDropdown] = useState(true);
 
   return (
@@ -92,10 +98,24 @@ const App = () => {
       ) : null}
       */}
       {/* <Translate /> */}
-      {showAccordion()}
-      {showList()}
-      {showDropdown()}
-      {showTranslate()}
+      
+      <Route path='/'>
+        <Accordion items={items} />
+      </Route>
+      <Route path='/list'>
+        <Search />
+      </Route>
+      <Route path='/dropdown'>
+        <Dropdown
+          label='Select a color'
+          options={options}
+          selected={selected}
+          onSelectedChange={setSelected}
+        />
+      </Route>
+      <Route path='/translate'>
+        <Translate />
+      </Route>
     </div>
   );
 };
