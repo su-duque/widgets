@@ -1,4 +1,4 @@
-// Solo se necesita React cuando se está escribiendo JSX
+// No se importa React, porque Solo se necesita cuando se está escribiendo JSX
 // import React from 'react';
 
 const Route = ({ path, children }) => {

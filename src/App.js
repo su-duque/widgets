@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import Accordion from './components/Accordion';
 import Dropdown from './components/Dropdown';
+import Header from './components/Header';
 import Route from './components/Route';
 import Search from './components/Search';
 import Translate from './components/Translate';
+
+import './index.css';
 
 const items = [
   {
@@ -66,7 +69,7 @@ Y solo se ejecuta o se muestra el contenido del Componente que cumple con la rut
 
 /* Además, en lugar de todas las funciones anteriores, sería mejor implementar
 una función que haga todas las validaciones, pero esta no es una solución
-tipo React. ¡Lo mejor es crear un Componente! */
+tipo React. ¡Lo mejor es crear un Componente! --> Route*/
 /* const showComponent = (route, component) => {
   return window.location.pathname === route ? component : null;
 }; */
@@ -99,6 +102,7 @@ const App = () => {
       */}
       {/* <Translate /> */}
       
+      <Header/>
       <Route path='/'>
         <Accordion items={items} />
       </Route>
